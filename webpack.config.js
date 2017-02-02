@@ -22,7 +22,7 @@ var webpackConfig = {
     entry: {
         settings: [
             'webpack-dev-server/client?http://localhost:5000',
-            __dirname + '/src/settings/settings'
+            __dirname + '/settings/settings'
         ],
         widget: __dirname + '/src/widget/widget'
     },

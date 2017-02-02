@@ -1,7 +1,169 @@
-@import "./main.scss";
-@import "./support.scss";
-@import "./animations.scss";
+@import "main.scss";
+@import "support.scss";
+@import "animations.scss";
 
-body p {
-  margin: 12px auto;
+//colors
+$color_san_juan_approx: #2b5672;
+$color_picton_blue_approx: #3899ec;
+$color_solitude_approx: #eaf7ff;
+$color_onahau_approx: #d3edff;
+$color_wild_sand_approx: #f5f5f5;
+$color_pistachio_approx: #8fc800;
+$color_yellow_orange_approx: #feb645;
+$gold: #ffd700;
+
+.main-tab {
+	text-align: center;
+	.app-logo {
+		height: 60px;
+		width: 60px;
+		margin: 20px auto 0;
+		position: relative;
+	}
+	.app-description {
+		text-align: center;
+		padding: 0 24px;
+		line-height: 21px;
+		font-size: 14px;
+		color: $color_san_juan_approx;
+	}
+	.main-cta-btn {
+		width: 180px;
+	}
 }
+.support-tab {
+	.developer-info {
+		font-size: 14px;
+		padding: 17px 24px;
+		li {
+			color: $color_picton_blue_approx;
+			line-height: 28px;
+			height: 28px;
+			cursor: pointer;
+			svg {
+				position: relative;
+				top: 4px;
+				padding-right: 7px;
+			}
+		}
+	}
+	.review-paragraph {
+		text-align: center;
+		padding: 0 24px;
+		line-height: 20px;
+		font-size: 14px;
+		color: $color_san_juan_approx;
+	}
+	.rate-us-btn {
+		width: 192px;
+	}
+}
+#script-example {
+	width: 260px;
+	//Instead of the line below you could use @include word-break($value)
+	word-break: keep-all;
+}
+p {
+	text-indent: 16px;
+	margin: 12px auto;
+}
+.example {
+	padding-top: 10px;
+	background-color: $color_solitude_approx;
+	height: 330px;
+	border: 1px solid $color_onahau_approx;
+}
+.stripes, .stripes-small {
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.075);
+    box-shadow: 0 1px 2px rgba(0,0,0,.075);
+        li{
+            text-align: center;
+            &:nth-child(odd) {
+		background: $color_wild_sand_approx;
+	}
+        }
+}
+.stripes-small{margin-bottom: 20px}
+.stripes {
+        li{
+	font-weight: 600;
+	min-height: 42px;
+}
+}
+.panel-body ul{
+	&:nth-child(odd) {
+		background: $color_wild_sand_approx;
+	}}
+.list-striped{ padding: 10px 15px;
+    margin-bottom: -1px;
+    border: 1px solid #ddd;}
+.talkingheads {
+	height: 320px;
+	width: 320px;
+}
+.plan {
+	height: 140px;
+}
+.panel {
+	text-align: center;
+}
+.panel-title {
+	font-weight: 700;
+}
+sup {
+	font-weight: 300;
+	font-size: 1pc;
+}
+sub {
+	font-weight: 300;
+	font-size: 1pc;
+}
+.price {
+	min-height: 60px;
+	font-size: 36px;
+	font-weight: 600;
+}
+#basicBtn {
+	margin-bottom: 10px;
+}
+#goldBtn {
+	margin-bottom: 10px;
+}
+.animations-tab .button-wrapper-center {
+	margin: 11px;
+}
+.control-radio-buttons label:nth-child(2) {
+	display: none;
+}
+.banner{
+    position: relative;
+    text-align: center;
+    cursor: default;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #2b5672;
+    padding: 0 42px;
+    border-radius: 4px;
+	border: 1px solid $color_onahau_approx;
+}
+.banner h3{margin: 8px auto}
+.basic {
+	background: $color_picton_blue_approx;
+	background: linear-gradient(to bottom, $color_picton_blue_approx 0,$color_picton_blue_approx 100%);
+	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_picton_blue_approx', endcolorstr='$color_picton_blue_approx',gradienttype=0 );
+}
+.free {
+	background: $color_pistachio_approx;
+	background: linear-gradient(to bottom, $color_pistachio_approx 0,$color_pistachio_approx 100%);
+	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_pistachio_approx', endcolorstr='$color_pistachio_approx',gradienttype=0 );
+}
+.gold {
+	background: $color_yellow_orange_approx;
+	background: linear-gradient(to bottom, $color_yellow_orange_approx 0,$gold 100%);
+	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_yellow_orange_approx', endcolorstr='$gold',gradienttype=0 );
+}
+    .app-logo{max-width: 50%;margin: 0 auto;}
+.views{text-align: center;font-size: 1.5pc;margin: 20px 0}
+.text-center{text-align: center}
