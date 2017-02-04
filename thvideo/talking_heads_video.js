@@ -24,7 +24,6 @@ function playerTH(playerValues) {
 		oncepersession = playerValues.session_play, //option for number of times video plays "yes", "no", or "onceonly"
 		vidLink = "",
 		openIn = "_blank",
-		hBtn = "click-to-play.png",
 		path = "thvideo/", //path to where the files are located
 		actor = playerValues.video,
 		actorpic = actor + ".gif", //transparent gif
@@ -48,8 +47,7 @@ function playerTH(playerValues) {
 		ua = navigator.userAgent.toLowerCase(),
 		isAndroid = ua.indexOf("android") > -1,
 		btnWidth = playerValues.btn_size,
-		hasSeenLS, hasSeenSS = false,
-		theParent, actorGif, iPhoneVideo, thplayer, spokespersonImage, thb, thv, playerBar, createTH, toPlay, playingS, outputCanvas, theCanvas, thc, imgLink = null,
+		hasSeenLS, hasSeenSS, theParent, actorGif, iPhoneVideo, thplayer, spokespersonImage, thb, thv, playerBar, createTH, toPlay, playingS, outputCanvas, theCanvas, thc, imgLink = null, clickOpacity = 0.9,
 		i10, toLoop, toMute = false,
 		hasSeen = "hasSeen" + canvasVideo;
 	delay = delay * 1000;
@@ -271,7 +269,7 @@ function playerTH(playerValues) {
 			$('<img />', {
 				"id": "exitMain",
 				"width": "16px",
-				"src": buttonPath + "exit.svg"
+				"src": buttonPath + "exit.png"
 			}).appendTo($('#playerHolder'));
 			$('#exitMain').css({
 				"margin-left": (width - 20) + "px",
@@ -290,55 +288,49 @@ function playerTH(playerValues) {
 		//-------------------------------------------------------Create Buttons
 		$('<img />', {
 			"id": "PlayPauseBtn",
-			"src": buttonPath + "play.svg",
-			"class": "playerBtns"
+			"src": buttonPath + "play.png",
+			"title": "Play/Pause"
 		}).appendTo($('#PlayerBar'));
 		$('<img />', {
 			"id": "muteBtn",
-			"src": buttonPath + "volume.svg",
-			"class": "playerBtns"
+			"src": buttonPath + "volume.png",
+			"title": "Volume"            
 		}).appendTo($('#PlayerBar'));
 		$('<img />', {
 			"id": "restart",
-			"src": buttonPath + "restart.svg",
-			"class": "playerBtns"
+			"src": buttonPath + "restart.png",
+			"title": "Restart Player"
 		}).appendTo($('#PlayerBar'));
 		$('<img />', {
 			"id": "playerClose",
-			"src": buttonPath + "exit.svg",
-			"class": "playerBtns"
-		}).appendTo($('#PlayerBar'));
-		$('<img />', {
-			"id": "logo",
-			"src": buttonPath + "logo.svg",
-			"class": "playerBtns"
+			"src": buttonPath + "exit.png",
+			"title": "Close Player"
 		}).appendTo($('#PlayerBar'));
 		//Create Logo button
-		var createLogo = document.createElement("img");
-		createLogo.style.width = btnWidth;
-		createLogo.id = "playerLogo";
-		createLogo.style.position = "relative";
-		createLogo.style.float = "left";
-		createLogo.src = buttonPath + "logo.png";
+		var TalkingHeadsLogo = $('<img />', {
+			"id": "Talking_Heads_Logo",
+			"src": buttonPath + "logo.png",
+			"title": "Visit Talking Heads"
+		});
 		var theLink = $('a', {
+            "id": "theLink",
 			"title": "Visit Talking Heads",
 			"href": "http://www.talkingheads.com/wix",
 			"target": "_blank"
 		});
-		playerBar.append(theLink);
-		theLink.append(createLogo);
+		playerBar.append(TalkingHeadsLogo);
+		TalkingHeadsLogo.append(theLink);
+        playerBar.children().addClass('playerBtns');
 		//---------------------------Player Btns size
 		playerBar.children().addClass('playerBtns');
 		$('.playerBtns').css({
 			"width": btnWidth,
 			"height": btnWidth
 		});
-		console.log(btnWidth);
 		//------------------------------------Set PlayerBar width
 		$('#playerClose').ready(function() {
 			var pbWidth = $('#PlayerBar').width();
 			var pbLeft = ((width - pbWidth) / 2) + "px";
-			console.log(pbWidth + "--" + pbLeft);
 			$('#PlayerBar').css("left", pbLeft);
 		});
 		///----------------------------End Create player bar assets
@@ -350,7 +342,7 @@ function playerTH(playerValues) {
 		outputCanvas = document.getElementById("bufferCanvas");
 		try {
 			thplayer.play();
-			document.getElementById("PlayPauseBtn").src = buttonPath + "PauseBtn.png";
+			document.getElementById("PlayPauseBtn").src = buttonPath + "pause.png";
 		} catch (err) {}
 		if (theCanvas && theCanvas.getContext) {
 			var ctx = theCanvas.getContext("2d");
@@ -390,7 +382,7 @@ function playerTH(playerValues) {
 		}
 		if (autostart === "yes" || toLoop === true) {
 			thplayer.autoplay = true;
-			document.getElementById("PlayPauseBtn").src = buttonPath + "pause.svg";
+			document.getElementById("PlayPauseBtn").src = buttonPath + "pause.png";
 			startPlaying();
 		} else {
 			addBackground();
@@ -417,6 +409,7 @@ function playerTH(playerValues) {
 					case "playerClose":
 					case "htmlClose":
 					case "imgLnk":
+					case "Talking_Heads_Logo":
 						e.target.style.opacity = 1;
 						break;
 					case "playerLogo":
@@ -438,6 +431,7 @@ function playerTH(playerValues) {
 					case "playerClose":
 					case "htmlClose":
 					case "imgLnk":
+					case "Talking_Heads_Logo":
 						e.target.style.opacity = 0.7;
 						break;
 					case "playerLogo":
@@ -509,7 +503,7 @@ function playerTH(playerValues) {
 	}
 
 	function videoEnded() {
-		$('#PlayPauseBtn').attr("src", buttonPath + "PlayBtn.png");
+		$('#PlayPauseBtn').attr("src", buttonPath + "play.png");
 		if (exitoncomplete === "yes") {
 			closePlayer();
 		} else if (isDevice) {
@@ -529,7 +523,7 @@ function playerTH(playerValues) {
 		} catch (err) {}
 		if (isDevice) {
 			thplayer.play();
-			document.getElementById("PlayPauseBtn").src = buttonPath + "pause.svg";
+			document.getElementById("PlayPauseBtn").src = buttonPath + "pause.png";
 		} else {
 			startPlaying();
 		}
@@ -538,9 +532,9 @@ function playerTH(playerValues) {
 	function playToggle() {
 		if (thplayer.paused) {
 			thplayer.play();
-			document.getElementById("PlayPauseBtn").src = buttonPath + "PauseBtn.png";
+			document.getElementById("PlayPauseBtn").src = buttonPath + "pause.png";
 		} else {
-			$('#PlayPauseBtn').attr("src", buttonPath + "PlayBtn.png");
+			$('#PlayPauseBtn').attr("src", buttonPath + "play.png");
 			thplayer.pause();
 		}
 	}
@@ -548,16 +542,16 @@ function playerTH(playerValues) {
 	function muteToggle() {
 		if (thplayer.muted) {
 			thplayer.muted = false;
-			document.getElementById("muteBtn").src = buttonPath + "volume.svg";
+			document.getElementById("muteBtn").src = buttonPath + "volume.png";
 		} else {
-			document.getElementById("muteBtn").src = buttonPath + "mute.svg";
+			document.getElementById("muteBtn").src = buttonPath + "mute.png";
 			thplayer.muted = true;
 		}
 	}
 
 	function restartClick() {
 		thplayer.currentTime = 0;
-		document.getElementById("PlayPauseBtn").src = buttonPath + "PauseBtn.png";
+		document.getElementById("PlayPauseBtn").src = buttonPath + "pause.png";
 		playClick();
 		thplayer.play();
 	}
@@ -608,7 +602,6 @@ function playerTH(playerValues) {
 		img.style.position = "absolute";
 		var btnImg = document.createElement("img");
 		btnImg.id = "videoBtn";
-		btnImg.src = hBtn;
 		btnImg.style.top = iPhoneWidth / 2 + "px";
 		btnImg.style.width = iPhoneWidth + "px";
 		btnImg.style.position = "absolute";
@@ -629,7 +622,7 @@ function playerTH(playerValues) {
 	}
 
 	function openLink() {
-		$('#PlayPauseBtn').attr("src", buttonPath + "PlayBtn.png");
+		$('#PlayPauseBtn').attr("src", buttonPath + "play.png");
 		thplayer.pause();
 		window.open(vidLink, openIn);
 	}
@@ -655,10 +648,12 @@ function playerTH(playerValues) {
 		$('#click-to-play').insertBefore('#spokespersonImage');
 		$('#click-to-play').text("Click to Play");
         $('#click-to-play').ready(function(){
-            console.log((playerLoc.outerWidth()-$('#click-to-play').outerWidth()));
+            if(opacity<0.5){
+                clickOpacity =opacity +0.5;
+            }
             $('#click-to-play').css({
-                "border": "2px solid " + color,
-                "background": convertHex(color, opacity),
+                "border": "3px solid " + color,
+                "background": convertHex(color, clickOpacity),
                 "left":(playerLoc.outerWidth()-$('#click-to-play').outerWidth())/2 + "px",
                 "top": "50%"
             });

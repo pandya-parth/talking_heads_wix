@@ -3,6 +3,6 @@ body{background:transparent}
 #bufferCanvas{position: absolute;display: none}         
 #talkingCanvas{position: absolute; top: 0;bottom: 0}
 #PlayerBar{border-radius: 8px;padding: 0;position: absolute;bottom: 0;z-index: 10;}
-.playerBtns{padding: 2px 1px 0;display: inline-block;position: relative}
-#click-to-play{position: absolute;padding: 10px;max-width: 50%;margin: 0 auto;font-size: 24px;text-align: center;font-weight: 700;border-radius: 12px;z-index: 10;text-shadow: 0 -1px 0 rgba(10,10,10,0.5);color: white}
+.playerBtns{padding: 3px 2px 0;display: inline-block;position: relative}
+#click-to-play{position: absolute;padding: 10px;max-width: 50%;margin: 0 auto;font-size: 24px;text-align: center;font-weight: 800;border-radius: 12px;z-index: 10;text-shadow: 0 -1px 0 rgba(10,10,10,0.5);color: black}
 #spokespersonImage{position: absolute;top: 0}
