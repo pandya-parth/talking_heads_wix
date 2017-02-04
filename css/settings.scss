@@ -4,12 +4,14 @@
 
 //colors
 $color_san_juan_approx: #2b5672;
+$color_san_juan: #374675;
 $color_picton_blue_approx: #3899ec;
 $color_solitude_approx: #eaf7ff;
 $color_onahau_approx: #d3edff;
 $color_wild_sand_approx: #f5f5f5;
 $color_pistachio_approx: #8fc800;
 $color_yellow_orange_approx: #feb645;
+$grey: #F0FEFF;
 $gold: #ffd700;
 
 .main-tab {
@@ -102,9 +104,6 @@ p {
 	height: 320px;
 	width: 320px;
 }
-.plan {
-	height: 140px;
-}
 .panel {
 	text-align: center;
 }
@@ -119,11 +118,6 @@ sub {
 	font-weight: 300;
 	font-size: 1pc;
 }
-.price {
-	min-height: 60px;
-	font-size: 36px;
-	font-weight: 600;
-}
 #basicBtn {
 	margin-bottom: 10px;
 }
@@ -136,7 +130,7 @@ sub {
 .control-radio-buttons label:nth-child(2) {
 	display: none;
 }
-.banner{
+.plan{
     position: relative;
     text-align: center;
     cursor: default;
@@ -144,11 +138,12 @@ sub {
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #2b5672;
-    padding: 0 42px;
-    border-radius: 4px;
-	border: 1px solid $color_onahau_approx;
+    padding: 2px;
+    text-align: center;
 }
-.banner h3{margin: 8px auto}
+.plan h3{margin: 4px auto;text-align: center;text-transform:uppercase;font-size: 1.5pc;padding: .75pc;font-weight: 700;border-radius: 4px;border: 1px solid $grey;color:black}
+.price {font-size: 1.25pc;font-weight: 400;margin: 10px auto}
+.views{font-size: 1.2pc;margin: 10px auto;color: $color_san_juan;font-weight: 600}
 .basic {
 	background: $color_picton_blue_approx;
 	background: linear-gradient(to bottom, $color_picton_blue_approx 0,$color_picton_blue_approx 100%);
@@ -164,6 +159,5 @@ sub {
 	background: linear-gradient(to bottom, $color_yellow_orange_approx 0,$gold 100%);
 	filter: progid:dximagetransform.microsoft.gradient(startcolorstr='$color_yellow_orange_approx', endcolorstr='$gold',gradienttype=0 );
 }
-    .app-logo{max-width: 50%;margin: 0 auto;}
-.views{text-align: center;font-size: 1.5pc;margin: 20px 0}
+.app-logo{max-width: 50%;margin: 0 auto;}
 .text-center{text-align: center}

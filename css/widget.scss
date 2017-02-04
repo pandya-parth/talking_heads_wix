@@ -1,34 +1,6 @@
-.wix-style-sample {
-    padding: 15px;
-
-    h3, p {
-        margin: 0;
-        padding: 0;
-    }
-
-    .sample-element {
-        margin: 5px 0;
-    }
-
-    .sample-button {
-        padding: 10px 15px;
-        border: 0;
-        width:100%;
-    }
-
-    .sample-input {
-        padding: 10px 15px;
-        border: 1px solid black;
-        width:100%;
-        box-sizing: border-box;
-    }
-
-    .form {
-        display: block;
-        margin-top: 10px;
-    }
-    pre{
-       white-space: pre-line;
-    }
-}
-
+body{background:transparent}
+.startBtn{cursor: pointer;border-radius: 25px;padding: 10px;text-align: center;font-size: 24px;font-weight: 800}
+#bufferCanvas{position: absolute;display: none}         
+#talkingCanvas{position: absolute; top: 0;bottom: 0}
+#PlayerBar{border-radius: 8px;padding: 0;position: absolute;bottom: 0}
+.playerBtns{padding: 2px 1px 0;display: inline-block;position: relative}
