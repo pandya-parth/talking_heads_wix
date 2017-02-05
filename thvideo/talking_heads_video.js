@@ -393,69 +393,27 @@ function playerTH(playerValues) {
 	}
 
 	function addListeners() {
-		theParent = document.querySelector("#talking_head_video");
-		theParent.addEventListener("click", doSomething, false);
-		theParent.addEventListener("mouseover", overVideo, false);
-		theParent.addEventListener("mouseout", outVideo, false);
-
-		function outVideo(e) {
-			if (e.target !== e.currentTarget) {
-				switch (e.target.id) {
-					case "talkingCanvas":
-						break;
-					case "PlayPauseBtn":
-					case "muteBtn":
-					case "restart":
-					case "playerClose":
-					case "htmlClose":
-					case "imgLnk":
-					case "Talking_Heads_Logo":
-						e.target.style.opacity = 1;
-						break;
-					case "playerLogo":
-						e.target.style.filter = "invert(0%)";
-						break;
-				}
-			}
-			e.stopPropagation();
-		}
-
-		function overVideo(e) {
-			if (e.target !== e.currentTarget) {
-				switch (e.target.id) {
-					case "talkingCanvas":
-						break;
-					case "PlayPauseBtn":
-					case "muteBtn":
-					case "restart":
-					case "playerClose":
-					case "htmlClose":
-					case "imgLnk":
-					case "Talking_Heads_Logo":
-						e.target.style.opacity = 0.7;
-						break;
-					case "playerLogo":
-						e.target.style.filter = "invert(70%)";
-						break;
-				}
-			}
-			e.stopPropagation();
-		}
-
-		function doSomething(e) {
+		theParent = $("#talking_head_video");
+        //Hover
+        $('.playerBtns').each(function (index, element) {
+            $(element).mouseenter(function () {
+                $(element).css("opacity", 0.8);
+            });
+        });
+        //mouse out
+        $('.playerBtns').each(function (index, element) {
+            $(element).mouseout(function () {
+                $(element).css("opacity", 1);
+            });
+        });
+		theParent.click(function(e){
 			if (e.target !== e.currentTarget) {
 				if (toMute) {
 					removeMuted();
 				}
 				switch (e.target.id) {
 					case "PlayPauseBtn":
-						if (spokespersonImage) {
-							if (spokespersonImage.style.display === "none") {
-								playToggle();
-							}
-						} else {
 							playToggle();
-						}
 						break;
 					case "muteBtn":
 						muteToggle();
@@ -493,7 +451,7 @@ function playerTH(playerValues) {
 				}
 			}
 			e.stopPropagation();
-		}
+		});
 		try {
 			thplayer.addEventListener("ended", videoEnded, false);
 		} catch (err) {}
