@@ -1,7 +1,7 @@
 #Talking Heads Wix App
 ###**Overview**
 
-http://talkingheads.com/wix
+http://talkingheads.video/wix
 
 ###**Features**
 * Uses the official Wix UI-lib and [UI controls](http://dev.wix.com/docs/ui-lib/ui-controls/)
