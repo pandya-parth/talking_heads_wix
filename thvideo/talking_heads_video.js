@@ -21,7 +21,7 @@ function playerTH(playerValues) {
 		exitbtn = playerValues.exit_btn, //show or not show exitbtn
 		autostart = playerValues.autostart.toLowerCase(), //autostart options yes, no, mute, oncethenpic, oncethenmute, onceonlythenpic, onceonlythenmute, and loop
 		exitoncomplete = playerValues.exit, //option for player to close after video completes. "yes" or "no"
-		oncepersession = playerValues.session_play, //option for number of times video plays "yes", "no", or "onceonly"
+		oncepersession = playerValues.session_play.toLowerCase(), //option for number of times video plays "yes", "no", or "onceonly"
 		vidLink = "",
 		openIn = "_blank",
 		path = "thvideo/", //path to where the files are located
@@ -235,6 +235,25 @@ function playerTH(playerValues) {
 		var p = document.createElement("p");
 		p.innerHTML = "Your Browser does not support the <video> tag";
 		v.appendChild(p);
+		$(playerLoc).append('<div id="playerHolder"/>');
+		$('#playerHolder').css({
+			"position": "relative",
+			"left": "0",
+			"bottom": "0",
+			"width": width + "px",
+			"height": height + "px"
+		});
+		///add exit btn if needed
+		if (exitbtn === true) {
+			$('<img />', {
+				"id": "exitMain",
+				"width": "16px",
+				"src": buttonPath + "exit.png"
+			}).appendTo($('#playerHolder'));
+			$('#exitMain').css({
+				"margin-left": (width - 20) + "px"
+			});
+		}
 	}
 
 	function createCanvas() {
@@ -256,26 +275,6 @@ function playerTH(playerValues) {
 	}
 
 	function createControls() {
-		$(playerLoc).append('<div id="playerHolder"/>');
-		$('#playerHolder').css({
-			"position": "relative",
-			"left": "0",
-			"bottom": "0",
-			"width": width + "px",
-			"height": height + "px"
-		});
-		///add exit btn if needed
-		if (exitbtn === true) {
-			$('<img />', {
-				"id": "exitMain",
-				"width": "16px",
-				"src": buttonPath + "exit.png"
-			}).appendTo($('#playerHolder'));
-			$('#exitMain').css({
-				"margin-left": (width - 20) + "px",
-				"margin-top": "-2px"
-			});
-		}
 		//------------------------------------------------------------PlayerBar
 		jQuery('<div/>', {
 			"id": 'PlayerBar',
@@ -408,6 +407,7 @@ function playerTH(playerValues) {
         });
 		theParent.click(function(e){
 			if (e.target !== e.currentTarget) {
+                console.log(e.target.id);
 				if (toMute) {
 					removeMuted();
 				}
@@ -422,7 +422,7 @@ function playerTH(playerValues) {
 						restartClick();
 						break;
 					case "playerClose":
-					case "htmlClose":
+					case "exitMain":
 						closePlayer();
 						break;
 					case "click-to-play":

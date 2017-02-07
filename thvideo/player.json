@@ -1,1 +1,1 @@
-{"autostart":"No","session_play":"Play Every Time","exit_on_complete":true,"delay":0.5,"volume":0.7,"color":"#009ED8","opacity":0.3,"btn_size":"48px","exit_btn":false,"video":"wixapp"}
+{"autostart":"No","session_play":"Play Every Time","exit_on_complete":false,"delay":0.5,"volume":0.7,"color":"#009ED8","opacity":0.3,"btn_size":"24px","exit_btn":true,"video":"wixapp"}
