@@ -3,24 +3,7 @@
 // this is mentioned in wix application settings in dashboard
 define( 'APP_SECRET', 'cf0adfd5-c46f-4f97-9c8c-33ce634a0929' );
 
-if ( !defined( 'NODB' ) ) {
-    $db = mysqli_connect( "vdb1a.pair.com", "working_35", "TKNFgSyL", "working_wixMaster" );
-}
-function loadData($id) {
-  $con = mysql_connect("vdb1a.pair.com","working_35","TKNFgSyL");
-  $dbs = mysql_select_db("working_wixMaster", $con);
-
-  //--------------------------------------------------------------------------
-  // 2) Query database for data
-  //--------------------------------------------------------------------------
-  $result = mysql_query("SELECT * FROM $tableName");          //query
-  $array = mysql_fetch_row($result);                          //fetch result    
-
-  //--------------------------------------------------------------------------
-  // 3) echo result as json 
-  //--------------------------------------------------------------------------
-  echo json_encode($array);
-}
+require( "data.php" );
 
 function getTestInstance() {
     $data = json_encode( array(

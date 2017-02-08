@@ -14,41 +14,14 @@
 
 <body>
     <?php
-    $myFile = "thvideo/player.json";
-    if ( $_POST ) {
-        $file = fopen( $myFile, 'w' )or die( "can't open file" );
-        fwrite( $file, $stringData );
-        fclose( $file );
-    } else {
-        $data = file_get_contents( $myFile );
-        $stringData = json_decode( $data, true );
-    }
+    require( 'reader.php' );
+    $getSettings = checkInstance( "13b5532d-c68a-25fe-58a6-af03c033327b" );
     ?>
     <div id="talking_head_video"></div>
     <script>
         $( document ).ready( function () {
-            console.log( 'ready' );
-            $.getJSON( 'thvideo/player.json', function ( data ) {
-                    console.log( 'success' );
-                    playerTH( data );
-                } )
-                .fail( function () {
-                    console.log( 'fail' );
-                console.log(getUrlVars());
-                } );
+            playerTH( <?=$getSettings?> );
         } );
-        function getUrlVars()
-{
-    var vars = [], hash;
-    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for(var i = 0; i < hashes.length; i++)
-    {
-        hash = hashes[i].split('=');
-        vars.push(hash[0]);
-        vars[hash[0]] = hash[1];
-    }
-    return vars;
-}
     </script>
 </body>
 

@@ -3,7 +3,7 @@
 function playerTH(playerValues) {
 	"use strict";
 	//Variables for Playereee
-	var responsive = "yes", //You must place <div id="talking_head_video"></div> inside the div you want the video to be in.
+	var responsive = "Yes", //You must place <div id="talking_head_video"></div> inside the div you want the video to be in.
 		iPhoneWidth = 0, //When the above happens, the witdh of the image
 		width = 320, //video width
 		height = 320, //video height
@@ -13,19 +13,19 @@ function playerTH(playerValues) {
 		divTop = "0",
 		bottom = "auto",
 		centeroffset = "auto",
-		color = playerValues.color,
-		opacity = playerValues.opacity,
-		volume = playerValues.volume,
-		delay = playerValues.delay, //delay start of video
+		color = playerValues[9],
+		opacity = playerValues[10],
+		volume = playerValues[8],
+		delay = playerValues[6], //delay start of video
 		/*controlbar = "mouse",*/ //options for showing the controlbar, yes, no, and mouse
-		exitbtn = playerValues.exit_btn, //show or not show exitbtn
-		autostart = playerValues.autostart.toLowerCase(), //autostart options yes, no, mute, oncethenpic, oncethenmute, onceonlythenpic, onceonlythenmute, and loop
-		exitoncomplete = playerValues.exit, //option for player to close after video completes. "yes" or "no"
-		oncepersession = playerValues.session_play.toLowerCase(), //option for number of times video plays "yes", "no", or "onceonly"
+		exitbtn = playerValues[12], //show or not show exitbtn
+		autostart = playerValues[4], //autostart options yes, no, mute, oncethenpic, oncethenmute, onceonlythenpic, onceonlythenmute, and loop
+		exitoncomplete = playerValues[7] , //option for player to close after video completes. "Yes" or "No"
+		oncepersession = playerValues[5], //option for number of times video plays "Yes", "No", or "onceonly"
 		vidLink = "",
 		openIn = "_blank",
 		path = "thvideo/", //path to where the files are located
-		actor = playerValues.video,
+		actor = playerValues[13],
 		actorpic = actor + ".gif", //transparent gif
 		canvasVideo = actor + "_matte.mp4", //Just name,not extension
 		h264 = actor + ".mp4", //Just name,not extension h264
@@ -46,9 +46,10 @@ function playerTH(playerValues) {
 		platform = navigator.platform,
 		ua = navigator.userAgent.toLowerCase(),
 		isAndroid = ua.indexOf("android") > -1,
-		btnWidth = playerValues.btn_size,
-		hasSeenLS, hasSeenSS, theParent, actorGif, iPhoneVideo, thplayer, spokespersonImage, thb, thv, playerBar, createTH, toPlay, playingS, outputCanvas, theCanvas, thc, imgLink = null, clickOpacity = 0.9,
+		btnWidth = playerValues[11]+"px",
+		hasSeenLS, hasSeenSS, theParent, actorGif, iPhoneVideo, thplayer, spokespersonImage, thb, thv, playerBar, createTH, playingS, outputCanvas, theCanvas, thc, imgLink = null, clickOpacity = 0.9,
 		i10, toLoop, toMute = false,
+        toPlay = true,
 		hasSeen = "hasSeen" + canvasVideo;
 	delay = delay * 1000;
 	actorGif = imagePath + actorpic;
@@ -92,9 +93,9 @@ function playerTH(playerValues) {
 	hasSeenSS = sessionStorage.getItem(hasSeen);
 	hasSeenLS = localStorage.getItem(hasSeen);
 	if (hasSeenLS === null) {
-		if (autostart !== "no" || autostart === "mute") {
+		if (autostart !== "No" || autostart === "Mute") {
 			toPlay = true;
-			autostart = "yes";
+			autostart = "Yes";
 		}
 	} else {
 		oncepersessionSwitch();
@@ -103,15 +104,15 @@ function playerTH(playerValues) {
 	if (hasSeenSS !== null) {
 		switch (autostart) {
 			case "oncethenmute":
-			case "mute":
+			case "Mute":
 			case "loop":
 				toLoop = true;
 				toMute = true;
-				autostart = "mute";
+				autostart = "Mute";
 				break;
 			case "oncethenpic":
 			case "onceonlythenpic":
-				autostart = "no";
+				autostart = "No";
 				break;
 		}
 	}
@@ -128,10 +129,10 @@ function playerTH(playerValues) {
 	function autostartSwitch() {
 		switch (autostart) {
 			case "onceonlythenmute":
-				autostart = "mute";
+				autostart = "Mute";
 				break;
 			case "onceonlythenpic":
-				autostart = "no";
+				autostart = "No";
 				break;
 			default:
 				break;
@@ -140,7 +141,7 @@ function playerTH(playerValues) {
 
 	function oncepersessionSwitch() {
 		switch (oncepersession) {
-			case "yes":
+			case "Yes":
 				if (hasSeenSS === "true") {
 					toPlay = false;
 				} else {
@@ -161,7 +162,7 @@ function playerTH(playerValues) {
 	}
 
 	function createDiv() {
-		if (responsive === "yes") {
+		if (responsive === "Yes") {
 			createTH = document.getElementById("talking_head_video");
 			createTH.style.position = "relative";
 			createTH.style.left = "50%";
@@ -244,7 +245,7 @@ function playerTH(playerValues) {
 			"height": height + "px"
 		});
 		///add exit btn if needed
-		if (exitbtn === true) {
+		if (exitbtn === "true") {
 			$('<img />', {
 				"id": "exitMain",
 				"width": "16px",
@@ -309,16 +310,11 @@ function playerTH(playerValues) {
 		var TalkingHeadsLogo = $('<img />', {
 			"id": "Talking_Heads_Logo",
 			"src": buttonPath + "logo.png",
-			"title": "Visit Talking Heads"
-		});
-		var theLink = $('a', {
-            "id": "theLink",
 			"title": "Visit Talking Heads",
 			"href": "http://www.talkingheads.com/wix",
 			"target": "_blank"
 		});
 		playerBar.append(TalkingHeadsLogo);
-		TalkingHeadsLogo.append(theLink);
         playerBar.children().addClass('playerBtns');
 		//---------------------------Player Btns size
 		playerBar.children().addClass('playerBtns');
@@ -371,7 +367,7 @@ function playerTH(playerValues) {
 	}
 
 	function HTML5Autostart() {
-		if (autostart === "yes" || toLoop === true) {
+		if (autostart === "Yes" || toLoop === true) {
 			thplayer.oncanplay = function() {
 				if (thplayer.paused === true) {
 					autostart = "cant auto play";
@@ -379,14 +375,14 @@ function playerTH(playerValues) {
 				}
 			};
 		}
-		if (autostart === "yes" || toLoop === true) {
+		if (autostart === "Yes" || toLoop === true) {
 			thplayer.autoplay = true;
 			document.getElementById("PlayPauseBtn").src = buttonPath + "pause.png";
 			startPlaying();
 		} else {
 			addBackground();
 		}
-		if (exitoncomplete === "yes") {
+		if (exitoncomplete === "Yes") {
 			thplayer.addEventListener("ended", closePlayer, false);
 		}
 	}
@@ -429,6 +425,9 @@ function playerTH(playerValues) {
 					case "spokespersonImage":
 						playClick();
 						break;
+                    case "Talking_Heads_Logo":
+                        window.location.href = "http://www.talkingheads.video/wix";
+                        break;
 					case "talkingCanvas":
 					case "talkinghead":
 						try {
@@ -462,7 +461,7 @@ function playerTH(playerValues) {
 
 	function videoEnded() {
 		$('#PlayPauseBtn').attr("src", buttonPath + "play.png");
-		if (exitoncomplete === "yes") {
+		if (exitoncomplete === "Yes") {
 			closePlayer();
 		} else if (isDevice) {
 			startBtnCreate();
