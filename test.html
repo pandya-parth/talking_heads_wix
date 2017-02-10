@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Talking Head App</title>
+<link rel="stylesheet" href="css/widget.css"/>
+<style type="text/css">
+    .container{width: 320px;margin: 0 auto}
+</style>
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="thvideo/talking_heads_video.js"></script>
+</head>
+
+<body>
+<section class="container">
+    <h1 id="reporter"></h1>
+    <div id="talking_head_video"></div>
+</section>
+<script>
+        $( document ).ready( function () {
+            var data = ["clientId","InstanceID","x","3","No","No","0","No","0.7","#85BFEE","0.7","36","true","wixapp"];
+                    playerTH( data );
+        } );
+    </script>
+</body>
+</html>
