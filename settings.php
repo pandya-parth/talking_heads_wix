@@ -1,4 +1,3 @@
-@@ -1,271 +0,0 @@
 <!doctype html>
 <html lang="en">
 
@@ -57,7 +56,22 @@
             <hr class="divider-long"/>
             <div id="plans"></div>
         </div>
+        <!--settings tab-->
 
+        <div tab="Video" class="plans-tab">
+            <hr class="divider-long"/>
+            <div wix-ctrl="SectionDividerLabeled" wix-options="{label: 'Video'}"> </div>
+            <hr class="divider-long"/>
+            <h3 class="text-center">Choose One of Your Videos Here</h3>
+            <hr class="divider-long"/>
+            <div id="video" wix-ctrl="DropDown" wix-options="{title: 'Select option',
+                defaultValue: '1',
+                infoTitle: 'Choose Video',
+                infoText: 'If you own more than one video you can choose which one to play here.',
+                options:[
+        {value: '1', label: 'wixapp'}
+        ]}"></div>
+        </div>
         <!--Functions tab-->
 
         <div tab="Function" class="function-tab">
@@ -74,7 +88,7 @@
                     { value: '1', label: 'Image'},
                     { value: '2', label: 'Mute'}
                 ]}"></div>
-            <div id="player_session_play" wix-ctrl="DropDown" wix-options="{
+            <div id="session_play" wix-ctrl="DropDown" wix-options="{
                     title: 'Play Every Time',
                     defaultValue: '1',
                         infoTitle: 'Play Every Time',
@@ -121,7 +135,7 @@
             <hr class="divider-long"/>
             <div id="bar-color" wix-param="bgColor" wix-ctrl="ColorPickerSlider" wix-options="{startWithColor: 'color-3', startWithOpacity: '0.5'}"></div>
             <hr class="divider-long"/>
-            <div id="btn-size" wix-ctrl="Slider" wix-options="{
+            <div id="btn_size" wix-ctrl="Slider" wix-options="{
                     title: 'Button Size',
                     min: 12,
                     max: 48,
@@ -132,7 +146,7 @@
                     infoText: 'Button Size the start of the video'
                 }"></div>
 
-            <div id="exit-btn" class="exit-btn" wix-ctrl="ToggleSwitch" wix-options="{
+            <div id="exit_btn" wix-ctrl="ToggleSwitch" wix-options="{
                         label: 'Show Exit Button',
                         defaultValue: false,
                         infoTitle: 'Show Exit Button',
@@ -197,78 +211,78 @@
     </div>
     <script src="js/settings.js"></script>
     <script>
-            $( document ).ready(function() {
-                //---------------------------------------------------------------Autostart
-            $( "#autostart" ).getCtrl().onChange( function ( autostart ) {
-                updatePlayer();
-            } );
-            //---------------------------------------------------------------Once Per Session
-            $( "#player_session_play" ).getCtrl().onChange( function ( session_play ) {
-                updatePlayer();
-            } );
-            //---------------------------------------------------------------Exit on Complete
-           $( "#exit" ).getCtrl().onChange( ( function ( exit_on_complete ) {
-                updatePlayer();
-            } ) );
-            //-----------------------------------------------------------------------------delay
-            $( "#player_delay" ).getCtrl().onChange( function ( delay ) {
-                updatePlayer();
-            } );
-            //-----------------------------------------------------------------------------volume
-            $( "#player_volume" ).getCtrl().onChange( function ( volume ) {
-                updatePlayer();
-            } );
-            //--------------------color picker
-            $( "#bar-color" ).getCtrl().onChange( function ( val ) {
-                updatePlayer();
-            } );
+        $( document ).ready( function () {
+            $json = {
+                "siteOwnerID": "bc461427-7f2d-4e7f-9524-43074cc4be5c",
+                "instanceId": "13b5532d-c68a-25fe-58a6-af03c033327b",
+                "vendorProductId": "Free",
+                "autostart": "No",
+                "session_play": "Play Every Time",
+                "exit_on_complete": false,
+                "delay": 0.1,
+                "volume": 0.7,
+                "color": "#009ED8",
+                "opacity": 0.5,
+                "btn_size": "24",
+                "exit_btn": true,
+                "video": "wixapp"
+            };
+            $( "#autostart" ).getCtrl().setValue('2');
+            $( "#session_play" ).getCtrl().setValue($json.session_play);
+            $( "#exit" ).getCtrl().setValue($json.exit_on_complete);
+            $( "#player_delay" ).getCtrl().setValue($json.delay);
+            $( "#player_volume" ).getCtrl().setValue($json.volume);
+            $( "#btn_size" ).getCtrl().setValue($json.btn_size);
+            $( "#exit_btn" ).getCtrl().setValue($json.exit_btn);
+            $( "#video" ).getCtrl().setValue($json.video);
+//            $( "#bar-color" ).getCtrl().setValue($json.color);
+        //---------------------------------------------------------------Autostart
+        $( "#autostart" ).getCtrl().onChange( function () {
+            var autostart = $( "#autostart" ).find( ".selected" ).text();
+            updatePlayer( "autostart", autostart );
+        } );
+        //---------------------------------------------------------------Once Per Session
+        $( "#session_play" ).getCtrl().onChange( function () {
+            var session_play = $( "#session_play" ).find( ".selected" ).text();
+            updatePlayer( "session_play", session_play );
+        } );
+        //---------------------------------------------------------------Exit on Complete
+        $( "#exit" ).getCtrl().onChange( ( function ( exit_on_complete ) {
+            updatePlayer( "exit_on_complete", exit_on_complete );
+        } ) );
+        //-----------------------------------------------------------------------------delay
+        $( "#player_delay" ).getCtrl().onChange( function ( delay ) {
+            updatePlayer( "delay", delay );
+        } );
+        //-----------------------------------------------------------------------------volume
+        $( "#player_volume" ).getCtrl().onChange( function ( volume ) {
+            updatePlayer( "volume", volume );
+        } );
+        //--------------------color picker
+        $( "#bar-color" ).getCtrl().onChange( function ( bar ) {
+            updatePlayer( "color", bar.color );
+            updatePlayer( "opacity", bar.opacity );
+        } );
+        //--------------------btn size
+        $( "#btn_size" ).getCtrl().onChange( function ( btn_size ) {
+            updatePlayer( "btn_size", btn_size );
+        } );
+        //---------------------------------------------------------------Exit on Complete
+        $( "#exit_btn" ).getCtrl().onChange( function ( exit_btn ) {
+            updatePlayer( "exit_btn", exit_btn );
+        } );
+        //---------------------------------------------------------------Video Chosen
+        $( "#video" ).getCtrl().onChange( function ( video ) {
+            updatePlayer( "video", video );
+        } );
 
-            //--------------------btn size
-            $( "#btn-size" ).getCtrl().onChange( function ( val ) {
-                updatePlayer();
-            } );
-            //---------------------------------------------------------------Exit on Complete
-           $( "#exit-btn" ).getCtrl().onChange(function () {
-                updatePlayer();
-            });
 
-
-            function updatePlayer() {
-                var dataToSend = {
-                    "siteOwnerID": $( '#owner' ).text(),
-                    "instanceId": $( '#instance' ).text(),
-                    "vendorProductId": $( '#vendorProductId' ).text(),
-                    "videoID": "wixapp",
-                    "autostart": $( "#autostart" ).find( ".selected" ).text(),
-                    "session_play": $( "#player_session_play" ).find( ".selected" ).text(),
-                    "exit_on_complete": $( "#exit" ).getCtrl().getValue(),
-                    "delay": $( "#player_delay" ).getCtrl().getValue(),
-                    "volume": $( "#player_volume" ).getCtrl().getValue(),
-                    "color": $( "#bar-color" ).getCtrl().getValue().color,
-                    "opacity": $( "#bar-color" ).getCtrl().getValue().opacity,
-                    "btn_size": $( "#btn-size" ).getCtrl().getValue(),
-                    "exit_btn": $( '#exit-btn' ).getCtrl().getValue(),
-                    "video": "wixapp"
-                }
-                var data =JSON.stringify( dataToSend );
-                $.ajax( {
-                    url: 'writer.php',
-                    type: "POST",
-                    dataType: 'json',
-                    async: false,
-                    data: data,
-                    success: function () {
-                        console.log( data );
-                    },
-                    failure: function () {
-                        console.log( "Error!" );
-                    }
-                });
-                console.log(dataToSend);
-            }
-        });
+        function updatePlayer( field, value ) {
+            console.log( field + "::" + value );
+        }
+            
+        } );
     </script>
 </body>
 
 </html>
-\ No newline at end of file

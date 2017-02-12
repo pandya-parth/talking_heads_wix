@@ -13,14 +13,25 @@
 </head>
 
 <body>
-    <?php
-    require( 'reader.php' );
-    $getSettings = checkInstance( "13b5532d-c68a-25fe-58a6-af03c033327b" );
-    ?>
     <div id="talking_head_video"></div>
     <script>
         $( document ).ready( function () {
-            playerTH( <?=$getSettings?> );
+    var settings = {
+                "siteOwnerID": "bc461427-7f2d-4e7f-9524-43074cc4be5c",
+                "instanceId": "13b5532d-c68a-25fe-58a6-af03c033327b",
+                "vendorProductId": "Free",
+                "autostart": "No",
+                "session_play": "Play Every Time",
+                "exit_on_complete": false,
+                "delay": 0.1,
+                "volume": 0.7,
+                "color": "#009ED8",
+                "opacity": 0.5,
+                "btn_size": "24",
+                "exit_btn": true,
+                "video": "wixapp"
+            };
+            playerTH( settings );
         } );
     </script>
 </body>
