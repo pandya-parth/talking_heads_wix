@@ -10,6 +10,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.js"></script>
     <script src="//static.parastorage.com/services/js-sdk/1.72.0/js/wix.min.js"></script>
     <script src="http://static.parastorage.com/services/editor-ui-lib/1.23.0/lib/editor-ui-lib-jquery.min.js"></script>
+    <script src="js/settings.js"></script>
     <link href="css/settings.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -88,7 +89,7 @@
                     { value: '1', label: 'Image'},
                     { value: '2', label: 'Mute'}
                 ]}"></div>
-            <div id="session_play" wix-ctrl="DropDown" wix-options="{
+            <div id="session_play" wix-ctrl="DropDown" wix-param="session_play" wix-options="{
                     title: 'Play Every Time',
                     defaultValue: '1',
                         infoTitle: 'Play Every Time',
@@ -99,14 +100,14 @@
                         { value: '3', label: 'Once Only'}
                     ]
                 }"></div>
-            <div id="exit" class="player_exit" wix-ctrl="ToggleSwitch" wix-options="{
+            <div id="exit" class="player_exit" wix-ctrl="ToggleSwitch" wix-param="player_exit" wix-options="{
                         label: 'Exit on Complete',
                         defaultValue: false,
                         infoTitle: 'Exit on Complete',
                         infoText: 'Does the video stay on screen when finished'
                     }"></div>
             <hr class="divider-long"/>
-            <div id="player_delay" wix-ctrl="Slider" wix-options="{
+            <div id="player_delay" wix-ctrl="Slider" wix-param="player_delay" wix-options="{
                     title: 'Delay (secs)',
                     min: 0,
                     max: 2,
@@ -116,7 +117,7 @@
                         infoText: 'Volume for the video'
                 }"></div>
             <hr class="divider-long"/>
-            <div id="player_volume" wix-ctrl="Slider" wix-options="{
+            <div id="player_volume" wix-ctrl="Slider" wix-param="player_volume" wix-options="{
                     title: 'Volume',
                     min: 0,
                     max: 1,
@@ -135,7 +136,7 @@
             <hr class="divider-long"/>
             <div id="bar-color" wix-param="bgColor" wix-ctrl="ColorPickerSlider" wix-options="{startWithColor: 'color-3', startWithOpacity: '0.5'}"></div>
             <hr class="divider-long"/>
-            <div id="btn_size" wix-ctrl="Slider" wix-options="{
+            <div id="btn_size" wix-ctrl="Slider" wix-param="btn_size" wix-options="{
                     title: 'Button Size',
                     min: 12,
                     max: 48,
@@ -146,7 +147,7 @@
                     infoText: 'Button Size the start of the video'
                 }"></div>
 
-            <div id="exit_btn" wix-ctrl="ToggleSwitch" wix-options="{
+            <div id="exit_btn" wix-ctrl="ToggleSwitch" wix-param="exit_btn" wix-options="{
                         label: 'Show Exit Button',
                         defaultValue: false,
                         infoTitle: 'Show Exit Button',
@@ -227,60 +228,60 @@
                 "exit_btn": true,
                 "video": "wixapp"
             };
-            $( "#autostart" ).getCtrl().setValue('2');
-            $( "#session_play" ).getCtrl().setValue($json.session_play);
-            $( "#exit" ).getCtrl().setValue($json.exit_on_complete);
-            $( "#player_delay" ).getCtrl().setValue($json.delay);
-            $( "#player_volume" ).getCtrl().setValue($json.volume);
-            $( "#btn_size" ).getCtrl().setValue($json.btn_size);
-            $( "#exit_btn" ).getCtrl().setValue($json.exit_btn);
-            $( "#video" ).getCtrl().setValue($json.video);
-//            $( "#bar-color" ).getCtrl().setValue($json.color);
-        //---------------------------------------------------------------Autostart
-        $( "#autostart" ).getCtrl().onChange( function () {
-            var autostart = $( "#autostart" ).find( ".selected" ).text();
-            updatePlayer( "autostart", autostart );
-        } );
-        //---------------------------------------------------------------Once Per Session
-        $( "#session_play" ).getCtrl().onChange( function () {
-            var session_play = $( "#session_play" ).find( ".selected" ).text();
-            updatePlayer( "session_play", session_play );
-        } );
-        //---------------------------------------------------------------Exit on Complete
-        $( "#exit" ).getCtrl().onChange( ( function ( exit_on_complete ) {
-            updatePlayer( "exit_on_complete", exit_on_complete );
-        } ) );
-        //-----------------------------------------------------------------------------delay
-        $( "#player_delay" ).getCtrl().onChange( function ( delay ) {
-            updatePlayer( "delay", delay );
-        } );
-        //-----------------------------------------------------------------------------volume
-        $( "#player_volume" ).getCtrl().onChange( function ( volume ) {
-            updatePlayer( "volume", volume );
-        } );
-        //--------------------color picker
-        $( "#bar-color" ).getCtrl().onChange( function ( bar ) {
-            updatePlayer( "color", bar.color );
-            updatePlayer( "opacity", bar.opacity );
-        } );
-        //--------------------btn size
-        $( "#btn_size" ).getCtrl().onChange( function ( btn_size ) {
-            updatePlayer( "btn_size", btn_size );
-        } );
-        //---------------------------------------------------------------Exit on Complete
-        $( "#exit_btn" ).getCtrl().onChange( function ( exit_btn ) {
-            updatePlayer( "exit_btn", exit_btn );
-        } );
-        //---------------------------------------------------------------Video Chosen
-        $( "#video" ).getCtrl().onChange( function ( video ) {
-            updatePlayer( "video", video );
-        } );
+            $( "#autostart" ).getCtrl().setValue( '2' );
+            $( "#session_play" ).getCtrl().setValue( $json.session_play );
+            $( "#exit" ).getCtrl().setValue( $json.exit_on_complete );
+            $( "#player_delay" ).getCtrl().setValue( $json.delay );
+            $( "#player_volume" ).getCtrl().setValue( $json.volume );
+            $( "#btn_size" ).getCtrl().setValue( $json.btn_size );
+            $( "#exit_btn" ).getCtrl().setValue( $json.exit_btn );
+            $( "#video" ).getCtrl().setValue( $json.video );
+            //            $( "#bar-color" ).getCtrl().setValue($json.color);
+            //---------------------------------------------------------------Autostart
+            $( "#autostart" ).getCtrl().onChange( function () {
+                var autostart = $( "#autostart" ).find( ".selected" ).text();
+                updatePlayer( "autostart", autostart );
+            } );
+            //---------------------------------------------------------------Once Per Session
+            $( "#session_play" ).getCtrl().onChange( function () {
+                var session_play = $( "#session_play" ).find( ".selected" ).text();
+                updatePlayer( "session_play", session_play );
+            } );
+            //---------------------------------------------------------------Exit on Complete
+            $( "#exit" ).getCtrl().onChange( ( function ( exit_on_complete ) {
+                updatePlayer( "exit_on_complete", exit_on_complete );
+            } ) );
+            //-----------------------------------------------------------------------------delay
+            $( "#player_delay" ).getCtrl().onChange( function ( delay ) {
+                updatePlayer( "delay", delay );
+            } );
+            //-----------------------------------------------------------------------------volume
+            $( "#player_volume" ).getCtrl().onChange( function ( volume ) {
+                updatePlayer( "volume", volume );
+            } );
+            //--------------------color picker
+            $( "#bar-color" ).getCtrl().onChange( function ( bar ) {
+                updatePlayer( "color", bar.color );
+                updatePlayer( "opacity", bar.opacity );
+            } );
+            //--------------------btn size
+            $( "#btn_size" ).getCtrl().onChange( function ( btn_size ) {
+                updatePlayer( "btn_size", btn_size );
+            } );
+            //---------------------------------------------------------------Exit on Complete
+            $( "#exit_btn" ).getCtrl().onChange( function ( exit_btn ) {
+                updatePlayer( "exit_btn", exit_btn );
+            } );
+            //---------------------------------------------------------------Video Chosen
+            $( "#video" ).getCtrl().onChange( function ( video ) {
+                updatePlayer( "video", video );
+            } );
 
 
-        function updatePlayer( field, value ) {
-            console.log( field + "::" + value );
-        }
-            
+            function updatePlayer( field, value ) {
+             //   console.log(field + "::" +value);
+            }
+
         } );
     </script>
 </body>

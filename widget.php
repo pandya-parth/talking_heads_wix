@@ -9,7 +9,6 @@
     <script src="//static.parastorage.com/services/js-sdk/1.66.0/js/wix.min.js"></script>
     <script src="js/widget.js"></script>
     <script src="thvideo/talking_heads_video.js"></script>
-    <script src="js/playerChange.js"></script>
 </head>
 
 <body>

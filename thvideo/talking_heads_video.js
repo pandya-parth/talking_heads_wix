@@ -27,9 +27,8 @@ function playerTH(playerValues) {
         // convert vars to something useful
         // JavaScript Document
         playerLoc = $('#talking_head_video'),
-        imagePath = path + "/",
-        gifBackground = "url('" + imagePath + actorpic + "')",
-        buttonPath = imagePath + "buttons" + "/",
+        gifBackground = "url('" + path + actorpic + "')",
+        buttonPath = path + "buttons" + "/",
         hVideo = path + "/" + canvasVideo,
         iOS = false,
         isDevice = false,
@@ -39,13 +38,13 @@ function playerTH(playerValues) {
         isAndroid = ua.indexOf("android") > -1,
         btnWidth = playerValues.btn_size + "px",
         hasSeenLS, hasSeenSS, theParent, actorGif, iPhoneVideo, thplayer, spokespersonImage, thb, playerBar, playingS, outputCanvas, theCanvas, thc, imgLink = null,
-        clickOpacity = 0.9,
+        clickOpacity = 0.5,
         i10, toLoop, toMute = false,
         toPlay = true,
         hasSeen = "hasSeen" + canvasVideo;
     delay = delay * 1000;
-    actorGif = imagePath + actorpic;
-    buttonPath = imagePath + "buttons" + "/";
+    actorGif = path + actorpic;
+    buttonPath = path + "buttons" + "/";
     //-------------------------------platform Detection
     if (ua.includes("iphone os 10")) {
         i10 = true;
