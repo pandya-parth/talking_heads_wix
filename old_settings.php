@@ -10,19 +10,14 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.js"></script>
     <script src="//static.parastorage.com/services/js-sdk/1.72.0/js/wix.min.js"></script>
     <script src="http://static.parastorage.com/services/editor-ui-lib/1.23.0/lib/editor-ui-lib-jquery.min.js"></script>
-    <link href="css/settings.scss" rel="stylesheet" type="text/css">
+    <script src="js/settings.js"></script>
+    <link href="css/settings.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
     <?php
     require 'include.php';
-    $q="select * from subjects where instanceId ='".instanceId."'";
-    $q1 = mysqli_query($conn,$q);
-    $pro = mysqli_fetch_array($q1);
-    $data = json_decode(getTestInstance());
-    $id = $data->instanceId; 
     ?>
-
     <div wix-ctrl="appSettings"></div>
     <div wix-ctrl="panelTabs" wix-options="{defaultTabIndex:0}">
 
@@ -30,10 +25,15 @@
 
         <div tab="Main" class="main-tab"> <img class="app-logo" src="images/logo.svg" alt="app logo"/>
             <p class="app-description"> This is the Wix App settings demo.<br/> Please add a short description of your App + CTA for the main action. </p>
-            <div id='instance'><?php echo $data->instanceId ?></div>
-            <div id='owner'><?php echo $data->uid ?></div>
-            <div id='vendor'><?php echo $data->vendorProductId ?></div>
-            <div id='origin'><?php echo $data->originInstanceId ?></div>
+            <?php 
+                $json = getTestInstance();
+                $data = json_decode($json);
+                $id = $data->instanceId; 
+                echo "<div id='instance'>". $id ."</div>";
+                 echo "<div id='owner'>".   $data->uid ."</div>";
+                 echo "<div id='vendor'>". $data->vendorProductId ."</div>";
+                 echo "<div id='origin'>". $data->originInstanceId ."</div>";
+                ?>
             <div class="main_button" wix-ctrl="Button" wix-options="{
                     label: 'Main CTA',
                     className: 'btn-confirm-primary'
@@ -70,8 +70,8 @@
                 infoTitle: 'Choose Video',
                 infoText: 'If you own more than one video you can choose which one to play here.',
                 options:[
-                    {value: '1', label: 'wixapp'}
-                ]}"></div>
+        {value: '1', label: 'wixapp'}
+        ]}"></div>
         </div>
         <!--Functions tab-->
 
@@ -155,7 +155,7 @@
                     }"></div>
         </div>
 
-        <!--Support tab------------------------------------------------------------------------------------------ -->
+        <!--Support tab------------------------------------------------------------------------------------------->
 
         <div tab="Support" class="support-tab">
             <hr class="divider-long"/>
@@ -228,61 +228,58 @@
                 "exit_btn": true,
                 "video": "wixapp"
             };
-        //     $( "#autostart" ).getCtrl().setValue( '2' );
-        //     $( "#session_play" ).getCtrl().setValue( $json.session_play );
-        //     $( "#exit" ).getCtrl().setValue( $json.exit_on_complete );
-        //     $( "#player_delay" ).getCtrl().setValue( $json.delay );
-        //     $( "#player_volume" ).getCtrl().setValue( $json.volume );
-        //     $( "#btn_size" ).getCtrl().setValue( $json.btn_size );
-        //     $( "#exit_btn" ).getCtrl().setValue( $json.exit_btn );
-        //     $( "#video" ).getCtrl().setValue( $json.video );
-        //     //            $( "#bar-color" ).getCtrl().setValue($json.color);
-        //     //---------------------------------------------------------------Autostart
-        //     $( "#autostart" ).getCtrl().onChange( function () {
-        //         var autostart = $( "#autostart" ).find( ".selected" ).text();
-        //         updatePlayer( "autostart", autostart );
-        //     } );
-        //     //---------------------------------------------------------------Once Per Session
-        //     $( "#session_play" ).getCtrl().onChange( function () {
-        //         var session_play = $( "#session_play" ).find( ".selected" ).text();
-        //         updatePlayer( "session_play", session_play );
-        //     } );
-        //     //---------------------------------------------------------------Exit on Complete
-        //     $( "#exit" ).getCtrl().onChange( ( function ( exit_on_complete ) {
-        //         updatePlayer( "exit_on_complete", exit_on_complete );
-        //     } ) );
-        //     //-----------------------------------------------------------------------------delay
-        //     $( "#player_delay" ).getCtrl().onChange( function ( delay ) {
-        //         updatePlayer( "delay", delay );
-        //     } );
-        //     //-----------------------------------------------------------------------------volume
-        //     $( "#player_volume" ).getCtrl().onChange( function ( volume ) {
-        //         updatePlayer( "volume", volume );
-        //     } );
-        //     //--------------------color picker
-        //     $( "#bar-color" ).getCtrl().onChange( function ( bar ) {
-        //         updatePlayer( "color", bar.color );
-        //         updatePlayer( "opacity", bar.opacity );
-        //     } );
-        //     //--------------------btn size
-        //     $( "#btn_size" ).getCtrl().onChange( function ( btn_size ) {
-        //         updatePlayer( "btn_size", btn_size );
-        //     } );
-        //     //---------------------------------------------------------------Exit on Complete
-        //     $( "#exit_btn" ).getCtrl().onChange( function ( exit_btn ) {
-        //         updatePlayer( "exit_btn", exit_btn );
-        //     } );
-        //     //---------------------------------------------------------------Video Chosen
-        //     $( "#video" ).getCtrl().onChange( function ( video ) {
-        //         updatePlayer( "video", video );
-        //     } );
+            $( "#autostart" ).getCtrl().setValue( '2' );
+            $( "#session_play" ).getCtrl().setValue( $json.session_play );
+            $( "#exit" ).getCtrl().setValue( $json.exit_on_complete );
+            $( "#player_delay" ).getCtrl().setValue( $json.delay );
+            $( "#player_volume" ).getCtrl().setValue( $json.volume );
+            $( "#btn_size" ).getCtrl().setValue( $json.btn_size );
+            $( "#exit_btn" ).getCtrl().setValue( $json.exit_btn );
+            $( "#video" ).getCtrl().setValue( $json.video );
+            //            $( "#bar-color" ).getCtrl().setValue($json.color);
+            //---------------------------------------------------------------Autostart
+            $( "#autostart" ).getCtrl().onChange( function () {
+                var autostart = $( "#autostart" ).find( ".selected" ).text();
+                updatePlayer( "autostart", autostart );
+            } );
+            //---------------------------------------------------------------Once Per Session
+            $( "#session_play" ).getCtrl().onChange( function () {
+                var session_play = $( "#session_play" ).find( ".selected" ).text();
+                updatePlayer( "session_play", session_play );
+            } );
+            //---------------------------------------------------------------Exit on Complete
+            $( "#exit" ).getCtrl().onChange( ( function ( exit_on_complete ) {
+                updatePlayer( "exit_on_complete", exit_on_complete );
+            } ) );
+            //-----------------------------------------------------------------------------delay
+            $( "#player_delay" ).getCtrl().onChange( function ( delay ) {
+                updatePlayer( "delay", delay );
+            } );
+            //-----------------------------------------------------------------------------volume
+            $( "#player_volume" ).getCtrl().onChange( function ( volume ) {
+                updatePlayer( "volume", volume );
+            } );
+            //--------------------color picker
+            $( "#bar-color" ).getCtrl().onChange( function ( bar ) {
+                updatePlayer( "color", bar.color );
+                updatePlayer( "opacity", bar.opacity );
+            } );
+            //--------------------btn size
+            $( "#btn_size" ).getCtrl().onChange( function ( btn_size ) {
+                updatePlayer( "btn_size", btn_size );
+            } );
+            //---------------------------------------------------------------Exit on Complete
+            $( "#exit_btn" ).getCtrl().onChange( function ( exit_btn ) {
+                updatePlayer( "exit_btn", exit_btn );
+            } );
+            //---------------------------------------------------------------Video Chosen
+            $( "#video" ).getCtrl().onChange( function ( video ) {
+                updatePlayer( "video", video );
+            } );
 
-            updatePlayer("video","test.mp4")
+
             function updatePlayer( field, value ) {
-                console.log(field + "::" +value);
-                $.ajax({url: "update.php", data: array('instance_id' => $json['instanceId']), success: function(result){
-                       
-                }});
+             //   console.log(field + "::" +value);
             }
 
         } );
